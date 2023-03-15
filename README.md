@@ -6,7 +6,7 @@
 zklinks
 ---
 
-zklinks is a link tracking platform that leverages zero knowledge proofs to provide users with a more secure and private way to refer friends and earn rewards. 
+zklinks is a link tracking platform that leverages zero knowledge proofs to provide users with a more secure and private way to track click referrals and earn rewards. 
 
 Built for the Scaling Ethereum 2023 hackathon.
 

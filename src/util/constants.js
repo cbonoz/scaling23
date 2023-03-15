@@ -4,7 +4,12 @@ export const NFT_PORT_KEY = process.env.REACT_APP_NFT_PORT_KEY; // nft port key
 export const APP_NAME = "zklinks";
 export const APP_DESC = "Zero knowledge-backed zklink requests";
 
+
+// Push protocol
 export const PUSH_NOTIFICATIONS_ENV = 'staging'
+export const PUSH_PK = 'your_channel_address_secret_key'; // channel private key
+export const PUSH_CHANNEL = '' // push notification channel
+
 
 // https://docs.fantom.foundation/wallet/set-up-metamask
 // Include trailing slashes
