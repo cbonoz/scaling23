@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { Button, Input, Row, Col, Radio, Steps } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { signatureUrl, ipfsUrl, getExplorerUrl, toHexString } from "../util";
+import { redirectUrl, ipfsUrl, getExplorerUrl, toHexString } from "../util";
 import { CREATE_STEPS, EXAMPLE_FORM } from "../util/constants";
-import { FileDrop } from "./FileDrop/FileDrop";
-import { storeFiles } from "../util/stor";
-import { deployContract, validAddress } from "../contract/linkContract";
-
-const { Step } = Steps;
+import { deployContract } from "../contract/linkContract";
 
 function CreateRequest({ activeChain }) {
-  const [data, setData] = useState({ files: [] });
+  const [data, setData] = useState({})
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
@@ -21,10 +17,7 @@ function CreateRequest({ activeChain }) {
 
   const isValid = (data) => {
     return (
-      data.title &&
-      data.description &&
-      data.files?.length > 0 &&
-      validAddress(data.signerAddress)
+      data.title && data.redirectUrl
     );
   };
   const isValidData = isValid(data);
@@ -67,27 +60,14 @@ function CreateRequest({ activeChain }) {
       const contract = await deployContract(data.title, data.signerAddress);
       // res["contract"] = contract;
       res["address"] = contract.address
-      res["files"] = files.map(f => f.path)
-
-      const blob = new Blob([JSON.stringify(res)], { type: 'application/json' })
-      const metadataFile = new File([blob], 'metadata.json')
-      const allFiles = [...files, metadataFile]
-
-      // 2) Upload files to ipfs,
-      const cid = await storeFiles(allFiles);
-      res['cid'] = cid
+      res["redirectUrl"] = redirectUrl(contract.address);
 
       // 3) return shareable url.
-      res["signatureUrl"] = signatureUrl(cid);
       res["contractUrl"] = getExplorerUrl(activeChain, res.address);
 
       // Result rendered after successful doc upload + contract creation.
       setResult(res);
-      try {
-        // await postPacket(res.zklink request);
-      } catch (e) {
-        console.error("error posting zklink request", e);
-      }
+
     } catch (e) {
       console.error("error creating zklink request", e);
       setError(e.message || e.toString())
@@ -165,7 +145,7 @@ function CreateRequest({ activeChain }) {
                 <p>
                   Share this url with the potential signer:
                   <br />
-                  <a href={result.signatureUrl} target="_blank">
+                  <a href={result.redirectUrl} target="_blank">
                     Open zklink url
                   </a>
                 </p>

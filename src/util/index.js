@@ -13,7 +13,7 @@ export const isEmpty = (obj) => {
   return !obj || obj.length === 0;
 };
 
-export const signatureUrl = (cid) => `${window.location.origin}/sign/${cid}`;
+export const redirectUrl = (address) => `${window.location.origin}/r/${address}`;
 
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

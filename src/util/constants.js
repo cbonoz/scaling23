@@ -44,10 +44,8 @@ export const DEFAULT_CHAIN_ID = 4002
 export const DEFAULT_CHAIN = CHAIN_OPTIONS[DEFAULT_CHAIN_ID]
 
 export const EXAMPLE_FORM = {
-  title: "Renter agreement",
-  description: "Please agree to the included renters agreement document",
-  signerAddress: "0xD7e02fB8A60E78071D69ded9Eb1b89E372EE2292",
-  files: [],
+  title: "My referral marketing campaign",
+  redirectUrl: 'google.com'
 };
 
 export const IPFS_BASE_URL = "https://w3s.link/ipfs"

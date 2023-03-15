@@ -53,8 +53,8 @@ export const validAddress = (addr) => {
   }
 };
 
-export const markContractCompleted = async (contractAddress, signatureUrl) => {
-  if (!contractAddress || !signatureUrl) {
+export const markContractCompleted = async (contractAddress, redirectUrl) => {
+  if (!contractAddress || !redirectUrl) {
     return {};
   }
   const signer = await getSigner();
@@ -63,6 +63,6 @@ export const markContractCompleted = async (contractAddress, signatureUrl) => {
     ZKLINKS_CONTRACT.abi,
     signer
   );
-  const result = await signatureContract.markCompleted(signatureUrl);
+  const result = await signatureContract.markCompleted(redirectUrl);
   return result;
 };
