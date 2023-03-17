@@ -9,9 +9,11 @@ import History from "./components/History";
 import Home from "./components/Home";
 import logo from "./assets/logo.png";
 import { capitalize } from "./util";
+import LinkRedirect from "./components/LinkRedirect";
 
 import "./App.css";
-import LinkRedirect from "./components/LinkRedirect";
+import 'chartkick/chart.js'
+
 
 const { Option } = Select;
 
@@ -59,7 +61,7 @@ function App() {
   const navigate = useNavigate();
   const path = window.location.pathname;
 
-  const isRedirect = path.startsWith("/r/");
+  const isRedirect = path.startsWith("/link/");
 
   const menuItems = [
     {
@@ -139,7 +141,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/r/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
+              <Route path="/link/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
               <Route path="/create" element={<CreateRequest activeChain={activeChain} account={account} />} />
               <Route path="/history" element={<History activeChain={activeChain} />} />
             </Routes>

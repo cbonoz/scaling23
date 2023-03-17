@@ -38,6 +38,10 @@ Improved Security: Another benefit of using a zero-knowledge proof system like z
 
 Fair Rewards: Finally, a zero-knowledge referral link tracking app like zklinks can help ensure that rewards are distributed fairly and transparently. Traditional referral link tracking systems often have complex reward structures that can be difficult for users to understand, and can sometimes be manipulated by unscrupulous actors. By using a transparent and secure system like zklinks, users can be confident that their referrals will be tracked accurately and that rewards will be distributed fairly based on their referral activity.
 
+### Example zklinks
+
+0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd
+`/link/0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd`
 
 ### Useful links
 Event page: https://ethglobal.com/events/scaling2023

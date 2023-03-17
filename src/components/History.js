@@ -3,6 +3,7 @@ import { Button, Input, Table } from "antd";
 import { APP_NAME } from "../util/constants";
 import { getTransactions } from "../util/covalent";
 import { abbreviate, col, getDateStringFromTimestamp } from "../util";
+import { LineChart } from "react-chartkick";
 
 const COLUMNS = [
   col("tx_hash", row => abbreviate(row || '', 6)),
@@ -57,15 +58,37 @@ function History({ activeChain }) {
 
       &nbsp;
       <Button onClick={fetchHistory} disabled={loading} loading={loading}>
-        View transactions
+        View referrals
       </Button>&nbsp;
       {address && data && <a href={`${activeChain.url}address/${address}`} target="_blank" rel="noreferrer">View on {activeChain.name}</a>}
       <br />
       <hr />
       {data && (
         <div>
+          <h1>Referral Summary</h1>
+          {/* Create a line chart grouped by the day */}
+          <LineChart
+            data={data.reduce((acc, row) => {
+              const date = getDateStringFromTimestamp(row.block_signed_at, false);
+              if (!acc[date]) {
+                acc[date] = 0;
+              }
+              acc[date] += 1
+              return acc;
+            }, {})}
+            xtitle="Date"
+            ytitle="Referrals"
+          />
+          {/* <LineChart
+            data={data.map((row) => [
+              getDateStringFromTimestamp(row.block_signed_at, true),
+              row.value,
+            ])}
+            xtitle="Date"
+            ytitle="Value"
+          /> */}
           <br />
-          <h1>Contract History</h1>
+          <h2>Transaction list</h2>
           <Table
             dataSource={data}
             columns={COLUMNS}
