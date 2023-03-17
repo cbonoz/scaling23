@@ -23,7 +23,7 @@ export const getPrimaryAccount = async () => {
 };
 
 // https://docs.fantom.foundation/smart-contract/deploy-a-smart-contract
-export async function deployContract(title, signerAddress) {
+export async function deployContract(title, reward, redirectUrl) {
   const signer = await getSigner();
 
   //   https://dev.to/yosi/deploy-a-smart-contract-with-ethersjs-28no
@@ -35,10 +35,8 @@ export async function deployContract(title, signerAddress) {
     signer
   );
 
-  const validatedAddress = ethers.utils.getAddress(signerAddress);
-
   // Start deployment, returning a promise that resolves to a contract object
-  const contract = await factory.deploy(title, validatedAddress);
+  const contract = await factory.deploy(title, reward, redirectUrl);
   await contract.deployed();
   console.log("Contract deployed to address:", contract.address);
   return contract;
@@ -53,8 +51,8 @@ export const validAddress = (addr) => {
   }
 };
 
-export const markContractCompleted = async (contractAddress, redirectUrl) => {
-  if (!contractAddress || !redirectUrl) {
+export const getRedirectUrl = async (contractAddress) => {
+  if (!contractAddress) {
     return {};
   }
   const signer = await getSigner();
@@ -63,6 +61,39 @@ export const markContractCompleted = async (contractAddress, redirectUrl) => {
     ZKLINKS_CONTRACT.abi,
     signer
   );
-  const result = await signatureContract.markCompleted(redirectUrl);
+  const result = await signatureContract.getRedirectUrl();
   return result;
 };
+
+export const getTitle = async (contractAddress) => {
+  if (!contractAddress) {
+    return {};
+  }
+  const signer = await getSigner();
+  const signatureContract = new ethers.Contract(
+    contractAddress,
+    ZKLINKS_CONTRACT.abi,
+    signer
+  );
+  const result = await signatureContract.getTitle();
+  return result;
+};
+
+export const refer = async (contractAddress, referrerCommitment, referreeCommitment) => {
+  if (!contractAddress) {
+    return {};
+  }
+
+  const referrerBytes = ethers.utils.formatBytes32String('referrerCommitment');
+  const referreeBytes = ethers.utils.formatBytes32String('referreeCommitment');
+
+  const signer = await getSigner();
+  const signatureContract = new ethers.Contract(
+    contractAddress,
+    ZKLINKS_CONTRACT.abi,
+    signer
+  );
+  const result = await signatureContract.refer(referrerBytes, referreeBytes);
+  return result;
+};
+

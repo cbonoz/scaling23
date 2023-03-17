@@ -65,7 +65,7 @@ function History({ activeChain }) {
       {data && (
         <div>
           <br />
-          <h1>Address History</h1>
+          <h1>Contract History</h1>
           <Table
             dataSource={data}
             columns={COLUMNS}

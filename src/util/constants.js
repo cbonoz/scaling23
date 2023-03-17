@@ -11,41 +11,37 @@ export const PUSH_PK = 'your_channel_address_secret_key'; // channel private key
 export const PUSH_CHANNEL = '' // push notification channel
 
 
-// https://docs.fantom.foundation/wallet/set-up-metamask
+// https://ethglobal.com/events/scaling2023/prizes#polygon
 // Include trailing slashes
 export const CHAIN_OPTIONS = {
-  // Polygon testnet
-
-  "250": {
-    name: "Fantom Opera",
-    symbol: "FTM",
-    rpc: "https://rpc.ankr.com/fantom/",
-    url: "https://ftmscan.com/",
-    id: 250,
+  80001: {
+    name: "Mumbai Testnet",
+    url: "https://mumbai.polygonscan.com/",
+    id: 80001,
   },
-  "4002": {
-    name: "Fantom Testnet",
-    symbol: "FTM",
-    rpc: "https://rpc.testnet.fantom.network/",
-    url: "https://testnet.ftmscan.com/",
-    id: 4002,
+  137: {
+    name: "Matic Mainnet",
+    url: "https://polygonscan.com/",
+    id: 137,
   },
+  534353:
+  {
+    // https://guide.scroll.io/user-guide/setup
+    name: 'Scroll Alpha Testnet',
+    rpcUrl: 'https://alpha-rpc.scroll.io/l2',
+    symbol: 'ETH',
+    url:"https://blockscout.scroll.io/",
+    id: 534353
+  }
 };
 
-
-// https://ethglobal.com/events/scaling2023/prizes#polygon
-// export const CHAIN_IDS = Object.keys(CHAIN_OPTIONS)
-
-// 1: { name: "ethereum", url: "https://etherscan.io/tx/", id: 1 },
-  // 42: { name: "kovan", url: "https://kovan.etherscan.io/tx/", id: 42 },
-// 4: { name: "rinkeby", url: "https://rinkeby.etherscan.io/tx/", id: 4 },
-
-export const DEFAULT_CHAIN_ID = 4002
+export const DEFAULT_CHAIN_ID = 80001
 export const DEFAULT_CHAIN = CHAIN_OPTIONS[DEFAULT_CHAIN_ID]
 
 export const EXAMPLE_FORM = {
   title: "My referral marketing campaign",
-  redirectUrl: 'google.com'
+  redirectUrl: "https://google.com",
+  reward: 0
 };
 
 export const IPFS_BASE_URL = "https://w3s.link/ipfs"

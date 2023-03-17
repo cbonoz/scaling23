@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { Button, Input, Row, Col, Radio, Steps } from "antd";
+import { Button, Input, Row, Col, Radio, Steps, Card } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { redirectUrl, ipfsUrl, getExplorerUrl, toHexString } from "../util";
+import { redirectUrl, ipfsUrl, getExplorerUrl, toHexString, isValidUrl } from "../util";
 import { CREATE_STEPS, EXAMPLE_FORM } from "../util/constants";
 import { deployContract } from "../contract/linkContract";
 
 function CreateRequest({ activeChain }) {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({ reward: 0 })
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
 
   const updateData = (key, value) => {
+    if (key === 'redirectUrl') {
+      value = (value.indexOf('://') === -1) ? 'http://' + value : value;
+    }
     setData({ ...data, [key]: value });
   };
 
   const isValid = (data) => {
     return (
-      data.title && data.redirectUrl
+      data.title && isValidUrl(data.redirectUrl)
     );
   };
   const isValidData = isValid(data);
@@ -42,7 +45,7 @@ function CreateRequest({ activeChain }) {
 
     if (!isValidData) {
       setError(
-        "Please provide a title, description, valid address, and at least one file."
+        "Please provide a zklink page title and valid redirect URL."
       );
       return;
     }
@@ -50,14 +53,12 @@ function CreateRequest({ activeChain }) {
     setLoading(true);
 
     // Format files for upload.
-    const files = data.files;
-
     let res = { ...data };
     res["chainId"] = activeChain.id;
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(data.title, data.signerAddress);
+      const contract = await deployContract(data.title, data.reward, data.redirectUrl);
       // res["contract"] = contract;
       res["address"] = contract.address
       res["redirectUrl"] = redirectUrl(contract.address);
@@ -69,7 +70,7 @@ function CreateRequest({ activeChain }) {
       setResult(res);
 
     } catch (e) {
-      console.error("error creating zklink request", e);
+      console.error("error creating zklink", e);
       setError(e.message || e.toString())
     } finally {
       setLoading(false);
@@ -95,25 +96,40 @@ function CreateRequest({ activeChain }) {
     <div>
       <Row>
         <Col span={16}>
-          <div className="create-form white boxed">
-            <h2>Create new zklink request</h2>
+          <Card className="create-form white boxed" title="Create a new zklink">
             <a href="#" onClick={setDemoData}>Set demo data</a>
             <br />
 
-            <h3 className="vertical-margin">Zklink request title:</h3>
+            <h3 className="vertical-margin">Link title:</h3>
             <Input
-              placeholder="Title of the zklink request"
+              placeholder="This title will be displayed on the zklink redirect page."
               value={data.title}
               prefix="Title:"
               onChange={(e) => updateData("title", e.target.value)}
             />
+            <br />
+            <br />
+            <p>
+              When the link is visited, the visited will be prompted to sign a message with their address and be redirected to the url below.
+
+            </p>
+
+            <Input
+              placeholder="Redirect URL (e.g. https://example.com)"
+              value={data.redirectUrl}
+              prefix="Redirect URL:"
+              onChange={(e) => updateData("redirectUrl",
+                e.target.value
+              )}
+            />
+            {/*             
             <TextArea
               aria-label="Description"
               onChange={(e) => updateData("description", e.target.value)}
               placeholder="Description of the zklink request"
               prefix="Description"
               value={data.description}
-            />
+            /> */}
 
             <Button
               type="primary"
@@ -129,7 +145,10 @@ function CreateRequest({ activeChain }) {
             )}
             <br />
             <br />
-            {error && <div className="error-text">{error}</div>}
+            {error && <div>
+              <div className="error-text">{error}</div>
+            </div>
+            }
             {result && (
               <div>
                 <div className="success-text">Created zklink request!</div>
@@ -153,7 +172,7 @@ function CreateRequest({ activeChain }) {
                 {/* <div>{JSON.stringify(result, null, "\t")}</div> */}
               </div>
             )}
-          </div>
+          </Card>
         </Col>
         <Col span={1}></Col>
         <Col span={7}>

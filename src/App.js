@@ -15,8 +15,6 @@ import LinkRedirect from "./components/LinkRedirect";
 
 const { Option } = Select;
 
-
-
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -61,7 +59,7 @@ function App() {
   const navigate = useNavigate();
   const path = window.location.pathname;
 
-  const isSignature = path.startsWith("/sign");
+  const isRedirect = path.startsWith("/r/");
 
   const menuItems = [
     {
@@ -74,12 +72,12 @@ function App() {
     },
     {
       key: '/create',
-      label: "Create",
+      label: "Create Link",
       onClick: () => navigate("/create"),
     },
     {
       key: '/history',
-      label: "Lookup request",
+      label: "Link History",
       onClick: () => navigate("/history"),
     },
     {
@@ -132,7 +130,7 @@ function App() {
             // theme="dark"
             mode="horizontal"
             selectedKeys={[path]}
-            items={isSignature ? [menuItems[0], menuItems[menuItems.length - 1]] : menuItems}
+            items={isRedirect ? [menuItems[0], menuItems[menuItems.length - 1]] : menuItems}
           >
 
           </Menu>
@@ -141,7 +139,6 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* <Route path="/sign/:signId" element={<Sign activeChain={activeChain} account={account} />} /> */}
               <Route path="/r/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
               <Route path="/create" element={<CreateRequest activeChain={activeChain} account={account} />} />
               <Route path="/history" element={<History activeChain={activeChain} />} />
@@ -149,7 +146,7 @@ function App() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          {APP_NAME} ©2023 - A Zero knowledge-powered zklink platform
+          {APP_NAME} ©2023 - A Zero knowledge-powered linking platform
         </Footer>
       </Layout>
     </div>

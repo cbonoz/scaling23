@@ -57,6 +57,25 @@ export const col = (k, render) => ({
   render,
 });
 
+export const getRpcError = (error) => {
+  if (error?.data?.message) {
+    return error.data.message;
+  }
+  return error.message || JSON.stringify(error);
+};
+
+// This function validates if the string is a valid URL
+export const isValidUrl = (link) => {
+  if (!link) return false;
+
+  try {
+    new URL(link);
+    return true;
+  } catch (_) {
+    return false;
+  }
+};
+
 export function bytesToSize(bytes) {
   var sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes == 0) return "0 Byte";

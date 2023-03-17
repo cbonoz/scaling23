@@ -4,7 +4,7 @@ import logo from "../assets/logo_3_2.png";
 import ReactRotatingText from "react-rotating-text";
 import { useNavigate } from "react-router-dom";
 import { APP_DESC } from "../util/constants";
-import { CheckCircleOutlined, CheckCircleTwoTone } from "@ant-design/icons";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 
 const CHECKLIST_ITEMS = [
   "Free zklink request page hosting on IPFS",
@@ -18,7 +18,7 @@ function Home(props) {
   const goToCreate = () => {
     navigate("/create");
   };
-  
+
   return (
     <div className="hero-section">
       <Row>
@@ -36,7 +36,7 @@ function Home(props) {
             {/* // "#eb2f96" */}
             {CHECKLIST_ITEMS.map((item, i) => {
               return (
-                <p>
+                <p key={i}>
                   <CheckCircleTwoTone twoToneColor="#00aa00" />
                   &nbsp;
                   {item}
