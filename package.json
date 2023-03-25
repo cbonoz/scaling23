@@ -6,7 +6,7 @@
   "dependencies": {
     "0xsequence": "^0.36.0",
     "@ant-design/icons": "^5.0.1",
-    "@polybase/client": "^0.3.34",
+    "@polybase/client": "^0.3.38",
     "@superfluid-finance/js-sdk": "^0.5.8",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

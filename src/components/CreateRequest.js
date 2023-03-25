@@ -4,6 +4,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { redirectUrl, ipfsUrl, getExplorerUrl, toHexString, isValidUrl } from "../util";
 import { CREATE_STEPS, EXAMPLE_FORM } from "../util/constants";
 import { deployContract } from "../contract/linkContract";
+import { createLink } from "../util/polybase";
 
 function CreateRequest({ activeChain }) {
   const [data, setData] = useState({ reward: 0 })
@@ -68,6 +69,17 @@ function CreateRequest({ activeChain }) {
 
       // Result rendered after successful doc upload + contract creation.
       setResult(res);
+
+      const polyResult = await createLink(
+        {
+          id: contract.address,
+          title: data.title,
+          redirectUrl: data.redirectUrl,
+          reward: data.reward,
+          owner: account
+        }
+      )
+
 
     } catch (e) {
       console.error("error creating zklink", e);

@@ -26,6 +26,11 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         try {
             const result = await refer(contractAddress, account, account);
             console.log(result);
+            // Redirect and referral successful.
+
+            // Add notification
+
+            // Send to page
             window.open(fullRedirectUrl)
         } catch (e) {
             console.log(e)

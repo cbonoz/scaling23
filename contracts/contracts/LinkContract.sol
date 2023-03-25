@@ -7,8 +7,6 @@ contract LinkContract {
     // A Zklinks contract represents a unique link to be tracked (identified by contract url)
 
     uint256 public referralReward;
-    mapping(bytes32 => bool) public referrerCommitments;
-    mapping(bytes32 => bool) public refereeCommitments;
     mapping(address => uint256) public referralCounts;
 
     address public owner;
@@ -21,25 +19,6 @@ contract LinkContract {
         title = _title;
         owner = msg.sender;
     }
-
-    function refer(
-        bytes32 _referrerCommitment,
-        bytes32 _refereeCommitment
-    ) external {
-        require(
-            !referrerCommitments[_referrerCommitment],
-            "Referrer already referred"
-        );
-        require(
-            !refereeCommitments[_refereeCommitment],
-            "Referee already referred"
-        );
-        referrerCommitments[_referrerCommitment] = true;
-        refereeCommitments[_refereeCommitment] = true;
-        referralCounts[msg.sender] += 1;
-    }
-
-    // Setters/Getters below
 
     function getReferralCount(
         address _referrer

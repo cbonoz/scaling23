@@ -3,6 +3,11 @@ export const NFT_PORT_KEY = process.env.REACT_APP_NFT_PORT_KEY; // nft port key
 
 export const APP_NAME = "zklinks";
 export const APP_DESC = "Zero knowledge-backed zklink requests";
+export const APP_ICON_URL = 'https://i.ibb.co/rsBPB9g/link.png';
+
+
+// https://polybase.xyz/docs/read
+export const POLYBASE_NAMESPACE = process.env.REACT_APP_POLYBASE_NAMESPACE || "pk/0xbb44be3b8e07ed240e9144acfa4760f872ea5282b86647e678b505ffc2192b8cb5462e4624f2b1f363b6ad91b23ad7c3b99bf97450354725273cd486c1898606/zklinks"
 
 
 // Push protocol
@@ -32,6 +37,15 @@ export const CHAIN_OPTIONS = {
     symbol: 'ETH',
     url:"https://blockscout.scroll.io/",
     id: 534353
+  },
+  // https://gnosisfaucet.com/
+  10200: {
+    name: 'Gnosis (Chaido)',
+    symbol: 'XDAI',
+    rpcUrl: 'https://rpc.chiadochain.net',
+    url: 'https://blockscout.com/gnosis/chiado/',
+    id: 10200
+
   }
 };
 

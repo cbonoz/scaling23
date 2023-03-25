@@ -13,6 +13,9 @@ import LinkRedirect from "./components/LinkRedirect";
 
 import "./App.css";
 import 'chartkick/chart.js'
+import OwnerLinks from "./components/OwnerLinks";
+import { BellOutlined } from "@ant-design/icons";
+import { fetchNotifications } from "./util/notifications";
 
 
 const { Option } = Select;
@@ -22,7 +25,19 @@ const { Header, Content, Footer } = Layout;
 function App() {
   const [account, setAccount] = useState();
   const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const [activeChain, setActiveChain] = useState(DEFAULT_CHAIN);
+
+  async function getNotifications() {
+    try {
+      const data = await fetchNotifications(account)
+      console.log('notifications', data)
+      setNotifications(data)
+    } catch (e) {
+      console.log(e)
+    }
+
+  }
 
   const login = async () => {
     setLoading(true)
@@ -57,6 +72,12 @@ function App() {
   useEffect(() => {
     checkConnected()
   }, [])
+
+  useEffect(() => {
+    if (account) {
+      getNotifications()
+    }
+  }, [account])
 
   const navigate = useNavigate();
   const path = window.location.pathname;
@@ -108,8 +129,11 @@ function App() {
           {!account && <span>
             <Button type="primary" onClick={login} loading={loading} disabled={loading}>Login with Metamask</Button>
           </span>}
-          {account && <span>
-            Hello: {account}</span>}
+          {account && <span><span>Hello: {account}</span>
+          <BellOutlined onClick={} />
+          </span>
+            
+            }
 
         </span>
     },
@@ -144,6 +168,7 @@ function App() {
               <Route path="/link/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
               <Route path="/create" element={<CreateRequest activeChain={activeChain} account={account} />} />
               <Route path="/history" element={<History activeChain={activeChain} />} />
+              <Route path="/links" element={<OwnerLinks activeChain={activeChain} account={account} />} />
             </Routes>
           </div>
         </Content>
