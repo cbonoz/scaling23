@@ -1,6 +1,6 @@
-import * as PushAPI from "@pushprotocol/restapi";
-import { APP_ICON_URL, APP_NAME, PUSH_NOTIFICATIONS_ENV } from "./constants";
+import { APP_ICON_URL, APP_NAME, PUSH_NOTIFICATIONS_ENV, PUSH_PK } from "./constants";
 import * as ethers from "ethers";
+import PushAPI from "@pushprotocol/restapi"
 
 
 
@@ -20,13 +20,17 @@ export const fetchNotifications = async (address) => {
 
 // https://docs.push.org/developers/developer-guides/sending-notifications/using-epns-sdk-gasless
 const sendNotification = async (address, referee, redirectUrl) => {
+  if (!PUSH_PK) {
+    console.error('Skipping notification - No push private key found')
+    return;
+  }
+
   const notification = {
     title: `[SDK-TEST] ${APP_NAME}: Successful referral`,
     body: `[sdk-test] ${APP_NAME}: ${referee} has been successfully referred to ${redirectUrl}`,
   }
 
-  // const Pkey = `0x${''}`;
-  const _signer = new ethers.Wallet(address);
+  const _signer = new ethers.Wallet(PUSH_PK);
 
   try {
     const apiResponse = await PushAPI.payloads.sendNotification({

@@ -12,23 +12,19 @@ export const POLYBASE_NAMESPACE = process.env.REACT_APP_POLYBASE_NAMESPACE || "p
 
 // Push protocol
 export const PUSH_NOTIFICATIONS_ENV = 'staging'
-export const PUSH_PK = 'your_channel_address_secret_key'; // channel private key
+export const PUSH_PK = process.env.REACT_APP_PUSH_PK;
 export const PUSH_CHANNEL = '' // push notification channel
 
 
 // https://ethglobal.com/events/scaling2023/prizes#polygon
 // Include trailing slashes
 export const CHAIN_OPTIONS = {
-  80001: {
-    name: "Mumbai Testnet",
-    url: "https://mumbai.polygonscan.com/",
-    id: 80001,
-  },
-  137: {
-    name: "Matic Mainnet",
-    url: "https://polygonscan.com/",
-    id: 137,
-  },
+
+  // 137: {
+  //   name: "Matic Mainnet",
+  //   url: "https://polygonscan.com/",
+  //   id: 137,
+  // },
   534353:
   {
     // https://guide.scroll.io/user-guide/setup
@@ -45,11 +41,15 @@ export const CHAIN_OPTIONS = {
     rpcUrl: 'https://rpc.chiadochain.net',
     url: 'https://blockscout.com/gnosis/chiado/',
     id: 10200
-
-  }
+  },
+  80001: {
+    name: "Mumbai Testnet",
+    url: "https://mumbai.polygonscan.com/",
+    id: 80001,
+  },
 };
 
-export const DEFAULT_CHAIN_ID = 80001
+export const DEFAULT_CHAIN_ID = 534353;
 export const DEFAULT_CHAIN = CHAIN_OPTIONS[DEFAULT_CHAIN_ID]
 
 export const EXAMPLE_FORM = {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import CreateRequest from "./components/CreateRequest";
-import { Layout, Menu, Select, Button } from "antd";
+import { Layout, Menu, Select, Button, Badge } from "antd";
 import { APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./util/constants";
 import History from "./components/History";
 import Home from "./components/Home";
@@ -14,7 +14,7 @@ import LinkRedirect from "./components/LinkRedirect";
 import "./App.css";
 import 'chartkick/chart.js'
 import OwnerLinks from "./components/OwnerLinks";
-import { BellOutlined } from "@ant-design/icons";
+import { BellOutlined, BellTwoTone } from "@ant-design/icons";
 import { fetchNotifications } from "./util/notifications";
 
 
@@ -109,7 +109,7 @@ function App() {
         Network:&nbsp;
         <Select
           defaultValue={activeChain.id}
-          style={{ width: 200 }}
+          style={{ width: 175 }}
           onChange={(v) => setActiveChain(CHAIN_OPTIONS[v])}
         >
           {Object.values(CHAIN_OPTIONS).map((chain, i) => {
@@ -129,11 +129,13 @@ function App() {
           {!account && <span>
             <Button type="primary" onClick={login} loading={loading} disabled={loading}>Login with Metamask</Button>
           </span>}
-          {account && <span><span>Hello: {account}</span>
-            <BellOutlined onClick={() => {
+          {account && <span><span>Hello: {account}</span>&nbsp;
+          <Badge count={notifications.length || 0}>
+            <BellTwoTone style={{ fontSize: '20px'}} onClick={() => {
               console.log('notifications', notifications)
               alert(JSON.stringify(notifications, null, 2))
             }} />
+            </Badge>
           </span>
 
           }

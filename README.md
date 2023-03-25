@@ -6,7 +6,7 @@
 zklinks
 ---
 
-zklinks is a cross-chain link tracking platform that leverages zero knowledge proofs to provide users with a more secure and private way to track click referrals and earn rewards. 
+zklinks is a cross-chain Layer 2 link tracking platform that leverages zero knowledge L@ networks to provide users with a more secure and private way to track click referrals and earn rewards. 
 
 Built for the Scaling Ethereum 2023 hackathon.
 
@@ -15,14 +15,6 @@ Built for the Scaling Ethereum 2023 hackathon.
 Unlike traditional referral programs, where personal information such as email addresses, phone numbers, or social media profiles may be shared, zklinks allows users to keep their personal data private while still being able to participate in referral programs and earn rewards.
 
 When a user generates a referral link using zklinks, the link is hashed and encrypted using zero knowledge proofs. This means that the link can be used to track referrals and determine whether a user is eligible for a reward, without revealing any personal information about the user or their friend. The platform also allows users to view their referral statistics from the app, such as the number of clicks and successful referrals, while maintaining their privacy.
-
-### A Zero-knowledge linking platform backed by smart contracts
-
-To make the above contract zero knowledge, we use a technique called hash commitment. Instead of storing the referrer and referee addresses in the contract directly, we could store their commitments, which are the hash values of their addresses.
-
-The referrer would generate a random secret number, hash it with their address, and submit the hash value as their commitment. When a referee signs up with the referral link, they would also generate a random secret number, hash it with their address, and submit the hash value as their commitment.
-
-To prove that the referrer referred the referee, the referrer would reveal their secret number to the contract, which would allow the contract to verify that the hash of the referrer's address matches the referrer's commitment. The contract would then ask the referee to reveal their secret number, which would allow the contract to verify that the hash of the referee's address matches the referee's commitment. If both commitments match, the contract would credit the referrer with the referral reward.
 
 ### Advantages over apps like bit.ly
 
@@ -38,6 +30,8 @@ Fair Rewards: Finally, a zero-knowledge referral link tracking app like zklinks 
 
 <pre>
     REACT_APP_POLYBASE_NAMESPACE={Optional custom namespace for polybase deployment}
+    REACT_APP_PUSH_PK={wallet push private key (testnet)}
+</pre>
 
 ### Example zklinks
 
@@ -48,7 +42,17 @@ Fair Rewards: Finally, a zero-knowledge referral link tracking app like zklinks 
 Event page: https://ethglobal.com/events/scaling2023
 Sponsors: https://ethglobal.com/events/scaling2023/prizes
 
+## Potential future work
 
+1. Integration with more blockchain networks: Currently, zklinks is designed to work on Layer 2 networks for Ethereum, but there are many other blockchain networks out there that could benefit from a similar platform. Future work could involve adapting the platform to work with other popular blockchain networks such as Bitcoin, Binance Smart Chain, or Polkadot.
+
+2. Adding new features: As the platform evolves, there will be opportunities to add new features that enhance the user experience and make the platform more useful. For example, one possible feature could be the ability to customize referral links with personalized messages or images. Another potential feature could be the integration of social media sharing tools, which would make it easier for users to share their referral links with their followers.
+
+3. Load testing: As the user base grows, the platform will need to be able to handle an increasing volume of traffic and data. Future work could involve improving the platform's scalability and performance to ensure that it can handle a large number of users and transactions without slowing down or becoming unreliable.
+
+4. Building partnerships with businesses: Referral programs are a popular marketing tool for many businesses, and there may be opportunities to build partnerships with businesses that want to use zklinks to manage their referral programs. Future work could involve reaching out to businesses and exploring partnerships that could benefit both parties.
+
+5. Developing a mobile app: While the web app is already accessible on mobile devices, developing a dedicated mobile app could make it more convenient for users to track their referrals on the go. A mobile app could also provide additional features such as push notifications to alert users of new referral activity or special promotions.
 
 <!-- 
 
@@ -67,11 +71,8 @@ Conclusion (30 seconds): Summarize the benefits of zklinks, including protecting
 Sponsors:
 Scroll: EVM compatible base chain (Dapp challenge)
 Gnosis Chain: EVM compatible base chain (Dapp challenge)
-Connext: Call contracts across different L2 chains
-Polybase: Web3 Firebase
-Fuel labs:
-Graph: Data indexing of referrals
-Push protocol: notifications when a link is clicked
+Polybase: Web3 Firebase. Used for link dashboards for a given account.
+Push protocol: notifications when a link is clicked / referred successfully.
 
 
 -->
