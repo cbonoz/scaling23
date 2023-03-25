@@ -28,13 +28,14 @@ Fair Rewards: Finally, a zero-knowledge referral link tracking app like zklinks 
 
 ### How to run
 
-`yarn; yarn start`
+1. Define the following env variables (either locally or in a created `.env` file)
 
 <pre>
-    REACT_APP_POLYBASE_NAMESPACE={Optional custom namespace for polybase deployment}
-    REACT_APP_PUSH_PK={wallet push private key (testnet)}
+    REACT_APP_POLYBASE_NAMESPACE= # Optional custom namespace for polybase deployment
+    REACT_APP_PUSH_PK= # Push protocol wallet private key
 </pre>
 
+2. `yarn; yarn start`
 ### Example zklinks
 
 0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd
