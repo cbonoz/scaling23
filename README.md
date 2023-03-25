@@ -50,8 +50,9 @@ Fair Rewards: Zklinks can also help ensure that rewards are distributed fairly a
 1. Define the following env variables (either locally or in a created `.env` file)
 
 <pre>
-    REACT_APP_POLYBASE_NAMESPACE= # Optional custom namespace for polybase deployment
-    REACT_APP_PUSH_PK= # Push protocol wallet private key
+    REACT_APP_POLYBASE_NAMESPACE= # Optional custom namespace for polybase deployment/backend.
+    REACT_APP_COVALENT_KEY= # Covalent api key used to power history page.
+    REACT_APP_PUSH_PK= # Push protocol wallet private key.
 </pre>
 
 2. `yarn; yarn start`

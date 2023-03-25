@@ -3,8 +3,9 @@ import { Button, Card, Modal } from 'antd';
 import { ethers } from 'ethers';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { getRedirectUrl, getTitle, refer } from '../contract/linkContract';
+import { getMetadata, getRedirectUrl, getTitle, refer } from '../contract/linkContract';
 import { getRpcError } from '../util';
+import { sendPush } from '../util/notifications';
 import { About } from './About';
 
 // This page should page a contractAddress path parameter enable a web3 transaction to credit a user with a link referral, 
@@ -12,9 +13,9 @@ import { About } from './About';
 export default function LinkRedirect({ activeChain, account, provider }) {
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = useState()
-    const [redirectUrl, setRedirectUrl] = useState()
-    const [title, setTitle] = useState()
+    const [data, setData] = useState({})
     const [showAbout, setShowAbout] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     const { contractAddress } = useParams();
 
@@ -24,20 +25,21 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         }
         setLoading(true)
         try {
-            const result = await refer(contractAddress, account, account);
+            const result = await refer(contractAddress);
             console.log(result);
             // Redirect and referral successful.
 
             // Add notification
 
             // Send to page
-            window.open(fullRedirectUrl)
+            setSuccess(true)
         } catch (e) {
             console.log(e)
             setError('Error completing referral: ' + getRpcError(e));
         }
         finally {
             setLoading(false)
+            await sendPush(data.owner, account, redirectUrl)
         }
     }
 
@@ -48,10 +50,14 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         }
         setLoading(true)
         try {
-            const url = await getRedirectUrl(contractAddress)
-            setRedirectUrl(url)
-            const t = await getTitle(contractAddress)
-            setTitle(t)
+            const res = await getMetadata(contractAddress)
+            // Unpack the response
+            setData({
+                title: res[0],
+                redirectUrl: res[1],
+                owner: res[2],
+                reward: res[3],
+            })
         } catch (e) {
             console.log(e)
             setError('Error reading link data: ' + e.message)
@@ -74,12 +80,19 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         return <div>Loading...</div>
     }
 
+    const { redirectUrl, title, owner, reward } = data
+    const fullRedirectUrl = `${redirectUrl || ''}?ref=${account}`
+
     if (error) {
         return <div>
             <span className='error-text'>{error}</span>
             <br />
             <br />
-            {error?.indexOf('wallet to continue') === -1 && <Button type="primary" onClick={() => setError(undefined)}><ArrowLeftOutlined/> Back</Button>}
+            {error.indexOf('wallet to continue') !== -1 && <Button type="primary" onClick={() => setError(undefined)}><ArrowLeftOutlined /> Back</Button>}
+            {error.indexOf('already referred') !== -1 && <div>
+                <p>You may still continue to the page: {redirectUrl}</p>
+                <Button type="primary" onClick={() => window.open(fullRedirectUrl)}>Continue to page</Button>
+            </div>}
 
         </div>
     }
@@ -87,8 +100,6 @@ export default function LinkRedirect({ activeChain, account, provider }) {
     const openAbout = () => {
         setShowAbout(true)
     }
-
-    const fullRedirectUrl = `${redirectUrl}?ref=${account}`
 
     const cardTitle = <span>Credit your referral&nbsp;<InfoCircleOutlined onClick={openAbout} /></span>
 
@@ -118,6 +129,16 @@ export default function LinkRedirect({ activeChain, account, provider }) {
             >
                 <About />
             </Modal>
+
+            <Modal
+                title="Referral successful"
+                open={success}
+                okButtonProps={{ style: { display: 'none' } }}
+                cancelButtonProps={{ style: { display: 'none' } }}
+                onCancel={() => setSuccess(false)}>
+                    <h5>Proceed to page</h5>
+                    <a href={fullRedirectUrl} rel="noreferrer">{fullRedirectUrl}</a>
+                </Modal>
         </div>
     )
 }

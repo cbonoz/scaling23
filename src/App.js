@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import CreateRequest from "./components/CreateRequest";
-import { Layout, Menu, Select, Button, Badge } from "antd";
+import { Layout, Menu, Select, Button, Badge, Modal } from "antd";
 import { APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./util/constants";
 import History from "./components/History";
 import Home from "./components/Home";
@@ -16,6 +16,7 @@ import 'chartkick/chart.js'
 import OwnerLinks from "./components/OwnerLinks";
 import { BellOutlined, BellTwoTone } from "@ant-design/icons";
 import { fetchNotifications } from "./util/notifications";
+import Notification from "./components/Notification";
 
 
 const { Option } = Select;
@@ -27,6 +28,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [activeChain, setActiveChain] = useState(DEFAULT_CHAIN);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   async function getNotifications() {
     try {
@@ -91,7 +93,8 @@ function App() {
         src={logo}
         className="header-logo pointer"
         onClick={() => navigate("/")}
-      />
+      />,
+      showOnRedirectPage: true,
     },
     {
       key: '/create',
@@ -103,9 +106,33 @@ function App() {
       label: "Link History",
       onClick: () => navigate("/history"),
     },
+
+    {
+      key: '/ownerlinks',
+      label:
+        <span>
+          {!account && <span>
+            <Button type="primary" onClick={login} loading={loading} disabled={loading}>Login with Metamask</Button>
+          </span>}
+          {account && <span on onClick={() => navigate('/ownerlinks')}><span>Hello: {account}</span>&nbsp;</span>}
+
+        </span>,
+      showOnRedirectPage: true,
+
+    },
     {
       key: 0,
-      label: <>
+      label:
+        <Badge count={notifications.length || 0}>
+          <BellTwoTone style={{ fontSize: '20px' }} onClick={() => {
+            console.log('notifications', notifications)
+            setShowNotifications(true)
+          }} />
+        </Badge>
+    },
+    {
+      key: 1,
+      label: <span className="align-right">
         Network:&nbsp;
         <Select
           defaultValue={activeChain.id}
@@ -120,27 +147,9 @@ function App() {
             );
           })}
         </Select>
-      </>
-    },
-    {
-      key: 1,
-      label:
-        <span>
-          {!account && <span>
-            <Button type="primary" onClick={login} loading={loading} disabled={loading}>Login with Metamask</Button>
-          </span>}
-          {account && <span><span>Hello: {account}</span>&nbsp;
-          <Badge count={notifications.length || 0}>
-            <BellTwoTone style={{ fontSize: '20px'}} onClick={() => {
-              console.log('notifications', notifications)
-              alert(JSON.stringify(notifications, null, 2))
-            }} />
-            </Badge>
-          </span>
+      </span>
+      , showOnRedirectPage: true,
 
-          }
-
-        </span>
     },
   ];
 
@@ -161,7 +170,8 @@ function App() {
             // theme="dark"
             mode="horizontal"
             selectedKeys={[path]}
-            items={isRedirect ? [menuItems[0], menuItems[menuItems.length - 1]] : menuItems}
+            items={isRedirect ? menuItems.filter(item => item.showOnRedirectPage) : menuItems}
+
           >
 
           </Menu>
@@ -170,10 +180,10 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/ownerlinks" element={<OwnerLinks activeChain={activeChain} account={account} />} />
               <Route path="/link/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
               <Route path="/create" element={<CreateRequest activeChain={activeChain} account={account} />} />
               <Route path="/history" element={<History activeChain={activeChain} />} />
-              <Route path="/links" element={<OwnerLinks activeChain={activeChain} account={account} />} />
             </Routes>
           </div>
         </Content>
@@ -181,7 +191,20 @@ function App() {
           {APP_NAME} ©2023 - A Zero knowledge-powered linking platform
         </Footer>
       </Layout>
-    </div>
+
+      <Modal title="Notifications" 
+      open={showNotifications} 
+      onOk={() => setShowNotifications(false)}
+      onCancel={() => setShowNotifications(false)}
+      cancelButtonProps={{style: {display: 'none'}}}
+        >
+            {notifications.map((n, i) => {
+              // Create a notification row where icon is an image.
+              return <Notification key={i} notification={n} />
+            })}
+      </Modal>
+
+    </div >
   );
 }
 

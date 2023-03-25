@@ -11,11 +11,11 @@ const linkCollection = db.collection("Zklink");
 
 // https://polybase.xyz/docs/read
 export async function createLink(
-  { id, title, redirectUrl, reward, owner }
+  { id, title, redirectUrl, reward, owner, address, chainId }
 ) {
   // .create(args) args array is defined by the constructor fn
   const recordData = await linkCollection.create([
-    id, title, redirectUrl, reward, owner
+    id, title, redirectUrl, reward, owner, new Date().getTime(), chainId
   ]);
 
   console.log('created link', recordData)

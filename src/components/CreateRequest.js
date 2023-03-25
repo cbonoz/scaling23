@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input, Row, Col, Radio, Steps, Card } from "antd";
+import { Button, Input, Row, Col, Radio, Steps, Card, Checkbox, Result } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { redirectUrl, ipfsUrl, getExplorerUrl, toHexString, isValidUrl } from "../util";
 import { CREATE_STEPS, EXAMPLE_FORM } from "../util/constants";
@@ -7,7 +7,7 @@ import { deployContract } from "../contract/linkContract";
 import { createLink } from "../util/polybase";
 
 function CreateRequest({ activeChain, account }) {
-  const [data, setData] = useState({ reward: 0 })
+  const [data, setData] = useState({ reward: 0, rewardChecked: false })
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
@@ -59,24 +59,27 @@ function CreateRequest({ activeChain, account }) {
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(data.title, data.reward, data.redirectUrl);
-      // res["contract"] = contract;
-      res["address"] = contract.address
-      res["redirectUrl"] = redirectUrl(contract.address);
+      if (true) {
+        const contract = await deployContract(data.title, data.reward, data.redirectUrl);
+        // res["contract"] = contract;
+        res["address"] = contract.address
+        res["redirectUrl"] = redirectUrl(contract.address);
 
-      // 3) return shareable url.
-      res["contractUrl"] = getExplorerUrl(activeChain, res.address);
+        // 3) return shareable url.
+        res["contractUrl"] = getExplorerUrl(activeChain, res.address);
+      }
 
       // Result rendered after successful doc upload + contract creation.
       setResult(res);
 
       const polyResult = await createLink(
         {
-          id: contract.address,
+          id: res.address || new Date().getTime().toString(),
           title: data.title,
           redirectUrl: data.redirectUrl,
           reward: data.reward,
-          owner: account
+          owner: account,
+          chainId: activeChain.id
         }
       )
 
@@ -102,6 +105,26 @@ function CreateRequest({ activeChain, account }) {
     e.preventDefault();
     setData({ ...EXAMPLE_FORM });
   };
+
+  if (result) {
+    return <Result
+      status="success"
+      title="Created zklink request!"
+      subTitle="Your zklink request has been created and is ready to be shared."
+      extra={[
+        <Button type="secondary" key="contract">
+          <a href={result.contractUrl} target="_blank">
+            View created contract
+          </a>
+        </Button>,
+        <Button type="primary" key="share">
+          <a href={result.redirectUrl} target="_blank">
+            Share this url
+          </a>
+        </Button>
+      ]} />
+  }
+
 
 
   return (
@@ -134,6 +157,28 @@ function CreateRequest({ activeChain, account }) {
                 e.target.value
               )}
             />
+
+
+            <br />
+            <br />
+            <Checkbox
+
+              checked={data.rewardChecked}
+              onChange={(e) => updateData("rewardChecked", e.target.checked)} />
+            &nbsp;Reward the referee when the link is used (once per address)
+            <br />
+
+
+            {data.rewardChecked && <div> <Input
+              placeholder="Reward amount (in ETH)"
+              value={data.reward}
+              prefix="Reward:"
+              onChange={(e) => updateData("reward", e.target.value)}
+            />
+              Note you must fund the contract to pay the reward.
+            </div>
+            }
+
             {/*             
             <TextArea
               aria-label="Description"
@@ -161,29 +206,7 @@ function CreateRequest({ activeChain, account }) {
               <div className="error-text">{error}</div>
             </div>
             }
-            {result && (
-              <div>
-                <div className="success-text">Created zklink request!</div>
-                <a href={ipfsUrl(result.cid)} target="_blank">
-                  View metadata
-                </a>
-                <br />
-                <a href={result.contractUrl} target="_blank">
-                  View created contract
-                </a>
-                <br />
-                <br />
-                <p>
-                  Share this url with the potential signer:
-                  <br />
-                  <a href={result.redirectUrl} target="_blank">
-                    Open zklink url
-                  </a>
-                </p>
 
-                {/* <div>{JSON.stringify(result, null, "\t")}</div> */}
-              </div>
-            )}
           </Card>
         </Col>
         <Col span={1}></Col>

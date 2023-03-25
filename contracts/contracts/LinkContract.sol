@@ -6,54 +6,95 @@ import "hardhat/console.sol";
 contract LinkContract {
     // A Zklinks contract represents a unique link to be tracked (identified by contract url)
 
-    uint256 public referralReward;
-    mapping(address => uint256) public referralCounts;
+    uint256 public referralCount;
+    mapping(address => bool) public referred;
 
-    address public owner;
-    string private redirectUrl;
-    string private title;
-
-    constructor(string memory _title, uint256 _referralReward, string memory _redirectUrl) {
-        referralReward = _referralReward;
-        redirectUrl = _redirectUrl;
-        title = _title;
-        owner = msg.sender;
+    struct LinkMetadata {
+        string title;
+        string redirectUrl;
+        address owner;
+        uint256 referralReward;
     }
 
-    function getReferralCount(
-        address _referrer
-    ) external view returns (uint256) {
-        return referralCounts[_referrer];
+    LinkMetadata public linkMetadata;
+
+    constructor(
+        string memory _title,
+        uint256 _referralReward,
+        string memory _redirectUrl
+    ) {
+        referralCount = 0;
+        linkMetadata = LinkMetadata(
+            _title,
+            _redirectUrl,
+            msg.sender,
+            _referralReward
+        );
+    }
+ 
+    function refer() external {
+        require(!referred[msg.sender], "User already referred");
+        referred[msg.sender] = true;
+        referralCount += 1;
+        uint256 referralReward = linkMetadata.referralReward;
+        if (referralReward > 0) {
+            // Ensure balance is sufficient
+            require(
+                address(this).balance >= referralReward,
+                "Reward balance is empty on contract"
+            );
+            // Transfer reward to sender.
+            payable(msg.sender).transfer(referralReward);
+        }
     }
 
-    function getReferralReward() external view returns (uint256) {
-        return referralReward;
+    function getMetadata() external view returns (LinkMetadata memory) {
+        return linkMetadata;
+    }
+
+    function isReffered(address _address) external view returns (bool) {
+        return referred[_address];
+    }
+
+    function checkOwner() private view {
+        require(
+            msg.sender == linkMetadata.owner,
+            "Only the link owner can call this method"
+        );
     }
 
     function setRedirectUrl(string memory _redirectUrl) external {
-        require(msg.sender == owner, "Only owner can set redirect url");
-        redirectUrl = _redirectUrl;
+        checkOwner();
+        linkMetadata.redirectUrl = _redirectUrl;
     }
 
     function setReferralReward(uint256 _referralReward) external {
-        require(msg.sender == owner, "Only owner can set referral reward");
-        referralReward = _referralReward;
+        checkOwner();
+        linkMetadata.referralReward = _referralReward;
     }
 
     function setTitle(string memory _title) external {
-        require(msg.sender == owner, "Only owner can set title");
-        title = _title;
+        checkOwner();
+        linkMetadata.title = _title;
     }
 
     function getTitle() external view returns (string memory) {
-        return title;
+        return linkMetadata.title;
     }
 
     function getRedirectUrl() external view returns (string memory) {
-        return redirectUrl;
+        return linkMetadata.redirectUrl;
     }
 
     function getOwner() external view returns (address) {
-        return owner;
+        return linkMetadata.owner;
+    }
+
+    function getReferralCount() external view returns (uint256) {
+        return referralCount;
+    }
+
+    function getReferralReward() external view returns (uint256) {
+        return linkMetadata.referralReward;
     }
 }

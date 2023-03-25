@@ -1,5 +1,4 @@
 export const COVALENT_KEY = process.env.REACT_APP_COVALENT_KEY; // covalent api key
-export const NFT_PORT_KEY = process.env.REACT_APP_NFT_PORT_KEY; // nft port key
 
 export const APP_NAME = "zklinks";
 export const APP_DESC = "Zero-knowledge referral link tracking";
@@ -13,7 +12,6 @@ export const POLYBASE_NAMESPACE = process.env.REACT_APP_POLYBASE_NAMESPACE || "p
 // Push protocol
 export const PUSH_NOTIFICATIONS_ENV = 'staging'
 export const PUSH_PK = process.env.REACT_APP_PUSH_PK;
-export const PUSH_CHANNEL = '' // push notification channel
 
 
 // https://ethglobal.com/events/scaling2023/prizes#polygon
@@ -75,4 +73,4 @@ export const CREATE_STEPS = [
   }
 ]
 
-console.log("config", COVALENT_KEY, NFT_PORT_KEY, DEFAULT_CHAIN);
+console.log("config", COVALENT_KEY, DEFAULT_CHAIN);

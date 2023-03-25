@@ -60,8 +60,12 @@ export const col = (k, render) => ({
 export const getRpcError = (error) => {
   if (error?.data?.message) {
     return error.data.message;
+  } else if (error?.reason) { 
+    return error.reason;
+  } else if (error?.message) {
+    return error.message;
   }
-  return error.message || JSON.stringify(error);
+  return JSON.stringify(error);
 };
 
 // This function validates if the string is a valid URL

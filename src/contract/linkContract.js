@@ -51,7 +51,7 @@ export const validAddress = (addr) => {
   }
 };
 
-export const getRedirectUrl = async (contractAddress) => {
+export const getMetadata = async (contractAddress) => {
   if (!contractAddress) {
     return {};
   }
@@ -61,7 +61,7 @@ export const getRedirectUrl = async (contractAddress) => {
     ZKLINKS_CONTRACT.abi,
     signer
   );
-  const result = await signatureContract.getRedirectUrl();
+  const result = await signatureContract.getMetadata();
   return result;
 };
 
@@ -79,13 +79,10 @@ export const getTitle = async (contractAddress) => {
   return result;
 };
 
-export const refer = async (contractAddress, referrerCommitment, referreeCommitment) => {
+export const refer = async (contractAddress) => {
   if (!contractAddress) {
     return {};
   }
-
-  const referrerBytes = ethers.utils.formatBytes32String('referrerCommitment');
-  const referreeBytes = ethers.utils.formatBytes32String('referreeCommitment');
 
   const signer = await getSigner();
   const signatureContract = new ethers.Contract(
@@ -93,7 +90,7 @@ export const refer = async (contractAddress, referrerCommitment, referreeCommitm
     ZKLINKS_CONTRACT.abi,
     signer
   );
-  const result = await signatureContract.refer(referrerBytes, referreeBytes);
+  const result = await signatureContract.refer();
   return result;
 };
 
