@@ -1,14 +1,16 @@
+<br/>
 <p align='center'>
     <img src="./img/logo.png" width=400 />
 </p>
+<br/>
 
 
-zklinks
+Zklinks: L2 Referral link tracking
 ---
 
 zklinks is a cross-chain Layer 2 link tracking platform that leverages zero knowledge L@ networks to provide users with a more secure and private way to track click referrals and earn rewards. 
 
-Built for the Scaling Ethereum 2023 hackathon.
+Built as a prototype for the Scaling Ethereum 2023 hackathon.
 
 ### Background
 
