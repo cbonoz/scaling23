@@ -55,6 +55,11 @@
   cursor: pointer;
 }
 
+.about-content {
+  margin-top: 50px;
+  font-size: large;
+}
+
 .hero-slogan-section {
   font-size: 18px;
   font-weight: 500;

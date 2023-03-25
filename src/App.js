@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import CreateRequest from "./components/CreateRequest";
 import { Layout, Menu, Select, Button, Badge, Modal } from "antd";
-import { APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./util/constants";
+import { APP_DESC, APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./util/constants";
 import History from "./components/History";
 import Home from "./components/Home";
 import logo from "./assets/logo.png";
@@ -17,6 +17,7 @@ import OwnerLinks from "./components/OwnerLinks";
 import { BellOutlined, BellTwoTone } from "@ant-design/icons";
 import { fetchNotifications } from "./util/notifications";
 import Notification from "./components/Notification";
+import { About } from "./components/About";
 
 
 const { Option } = Select;
@@ -184,24 +185,33 @@ function App() {
               <Route path="/link/:contractAddress" element={<LinkRedirect activeChain={activeChain} account={account} />} />
               <Route path="/create" element={<CreateRequest activeChain={activeChain} account={account} />} />
               <Route path="/history" element={<History activeChain={activeChain} />} />
+              <Route path="/about" element={<About />} />
             </Routes>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          {APP_NAME} ©2023 - A Zero knowledge-powered linking platform
+          {APP_NAME} &copy;{new Date().getFullYear()} - {APP_DESC} -{" "}
+          <a href="#" onClick={(e) => {
+            e.preventDefault()
+            navigate("/about");
+          }}>
+            About</a>
         </Footer>
       </Layout>
 
-      <Modal title="Notifications" 
-      open={showNotifications} 
-      onOk={() => setShowNotifications(false)}
-      onCancel={() => setShowNotifications(false)}
-      cancelButtonProps={{style: {display: 'none'}}}
-        >
-            {notifications.map((n, i) => {
-              // Create a notification row where icon is an image.
-              return <Notification key={i} notification={n} />
-            })}
+      <Modal title={`Notifications (${notifications.length})`}
+        bodyStyle={{ overflowY: 'scroll' }}
+        open={showNotifications}
+        onOk={() => setShowNotifications(false)}
+        onCancel={() => setShowNotifications(false)}
+        cancelButtonProps={{ style: { display: 'none' } }}
+      >
+        <div style={{ overflowY: 'scroll', maxHeight: '500px' }}>
+          {notifications.map((n, i) => {
+            // Create a notification row where icon is an image.
+            return <Notification key={i} notification={n} />
+          })}
+        </div>
       </Modal>
 
     </div >

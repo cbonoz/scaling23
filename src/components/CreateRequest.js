@@ -175,7 +175,7 @@ function CreateRequest({ activeChain, account }) {
               prefix="Reward:"
               onChange={(e) => updateData("reward", e.target.value)}
             />
-              Note you must fund the contract to pay the reward.
+              Note you must fund the contract after deployment for the contract to pay out rewards.
             </div>
             }
 
@@ -188,14 +188,17 @@ function CreateRequest({ activeChain, account }) {
               value={data.description}
             /> */}
 
+            <br/>
+
             <Button
               type="primary"
               className="standard-button"
               onClick={create}
+              size="large"
               disabled={loading} // || !isValidData}
               loading={loading}
             >
-              Create zklink request!
+              Create link contract
             </Button>
             {!error && !result && loading && (
               <span>&nbsp;Note this may take a few moments.</span>

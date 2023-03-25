@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMetadata, getRedirectUrl, getTitle, refer } from '../contract/linkContract';
 import { getRpcError } from '../util';
+import { APP_NAME } from '../util/constants';
 import { sendPush } from '../util/notifications';
 import { About } from './About';
 
@@ -60,7 +61,12 @@ export default function LinkRedirect({ activeChain, account, provider }) {
             })
         } catch (e) {
             console.log(e)
-            setError('Error reading link data: ' + e.message)
+            let message = getRpcError(e)
+            if (message.indexOf('call revert') !== -1) {
+                message = 'You may be connected to the wrong network. Please check selected network and metamask and try again.'
+            }
+
+            setError('Error reading link data: ' + message)
         }
         finally {
             setLoading(false)
@@ -77,19 +83,21 @@ export default function LinkRedirect({ activeChain, account, provider }) {
     }, [provider, account])
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div>Waiting for user interaction...</div>
     }
 
     const { redirectUrl, title, owner, reward } = data
     const fullRedirectUrl = `${redirectUrl || ''}?ref=${account}`
 
+
     if (error) {
+        const alreadyReferred = error.indexOf('already referred') !== -1
         return <div>
             <span className='error-text'>{error}</span>
             <br />
             <br />
-            {error.indexOf('wallet to continue') !== -1 && <Button type="primary" onClick={() => setError(undefined)}><ArrowLeftOutlined /> Back</Button>}
-            {error.indexOf('already referred') !== -1 && <div>
+            {!alreadyReferred && <Button type="primary" onClick={() => setError(undefined)}><ArrowLeftOutlined /> Back</Button>}
+            {alreadyReferred && <div>
                 <p>You may still continue to the page: {redirectUrl}</p>
                 <Button type="primary" onClick={() => window.open(fullRedirectUrl)}>Continue to page</Button>
             </div>}
@@ -109,7 +117,7 @@ export default function LinkRedirect({ activeChain, account, provider }) {
                 {title && <p>Title: {title}</p>}
                 You will be redirected to the following page when you click the button below:
                 {redirectUrl && <p>Redirect URL: {redirectUrl}</p>}
-                <Button
+                {!success && <Button
                     disabled={!redirectUrl || !account}
                     type="primary"
                     onClick={() => {
@@ -117,7 +125,7 @@ export default function LinkRedirect({ activeChain, account, provider }) {
                     }}
                 >
                     Continue to page
-                </Button>
+                </Button>}
             </Card>
 
             <Modal
@@ -131,13 +139,17 @@ export default function LinkRedirect({ activeChain, account, provider }) {
             </Modal>
 
             <Modal
-                title="Referral successful"
+                title={<span className='success-text'>Referral successful</span>}
                 open={success}
                 okButtonProps={{ style: { display: 'none' } }}
                 cancelButtonProps={{ style: { display: 'none' } }}
                 onCancel={() => setSuccess(false)}>
-                    <h5>Proceed to page</h5>
+                    <hr/>
+                    <h3>Proceed to page below</h3>
                     <a href={fullRedirectUrl} rel="noreferrer">{fullRedirectUrl}</a>
+                    <br/>
+                    <br/>
+                    <p>Thanks for using {APP_NAME}!</p>
                 </Modal>
         </div>
     )

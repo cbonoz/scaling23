@@ -1,7 +1,7 @@
 export const COVALENT_KEY = process.env.REACT_APP_COVALENT_KEY; // covalent api key
 
-export const APP_NAME = "zklinks";
-export const APP_DESC = "Zero-knowledge referral link tracking";
+export const APP_NAME = "Zklinks";
+export const APP_DESC = "Multi-chain L2 network referral link tracking"
 export const APP_ICON_URL = 'https://i.ibb.co/rsBPB9g/link.png';
 
 
@@ -40,11 +40,11 @@ export const CHAIN_OPTIONS = {
     url: 'https://blockscout.com/gnosis/chiado/',
     id: 10200
   },
-  80001: {
-    name: "Mumbai Testnet",
-    url: "https://mumbai.polygonscan.com/",
-    id: 80001,
-  },
+  // 80001: {
+  //   name: "Mumbai Testnet",
+  //   url: "https://mumbai.polygonscan.com/",
+  //   id: 80001,
+  // },
 };
 
 export const DEFAULT_CHAIN_ID = 534353;
@@ -64,12 +64,12 @@ export const CREATE_STEPS = [
     description: "Enter required data to register the link."
   },
   {
-    title: "Create zklink request",
-    description: "Requires authorizing a create zklink smart contract request."
+    title: "Create zklink",
+    description: "Requires authorizing a Zklink 'LinkContract' creation request."
   },
   {
     title: "Wait for zklink to be created",
-    description: "Your referral url will be live for others to use"
+    description: "Your contract and referral url will be ready for others to use"
   }
 ]
 

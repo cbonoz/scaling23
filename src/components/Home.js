@@ -1,14 +1,13 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
 import logo from "../assets/logo_3_2.png";
-import ReactRotatingText from "react-rotating-text";
 import { useNavigate } from "react-router-dom";
 import { APP_DESC } from "../util/constants";
-import { CheckCircleTwoTone } from "@ant-design/icons";
+import { ArrowRightOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 
 const CHECKLIST_ITEMS = [
-  "Free zklink request page hosting on IPFS",
-  "Completed zklinks saved on Zero knowledge Smart Contracts",
+  "Secure, Decentralized Click Tracking on L2 Networks",
+  "Hassle-Free Referral Tracking with Zero-Knowledge Proofs",
   "No vendor agreements required",
 ];
 
@@ -26,10 +25,11 @@ function Home(props) {
           <div className="hero-slogan-section">
             <div className="hero-slogan">
               <p>
-                {APP_DESC} for&nbsp;
-                <ReactRotatingText
+                {APP_DESC}
+                 {/* for&nbsp; */}
+                {/* <ReactRotatingText
                   items={["businesses", "individuals", "everyone"]}
-                />
+                /> */}
                 .
               </p>
             </div>
@@ -46,7 +46,7 @@ function Home(props) {
             <br />
 
             <Button type="primary" size="large" onClick={goToCreate}>
-              Create zklink request
+              Create a new zklink <ArrowRightOutlined/>
             </Button>
           </div>
         </Col>

@@ -8,6 +8,7 @@ const Notification = ({notification}) => {
       alignItems: 'center',
       backgroundColor: '#F5F5F5',
       padding: '16px',
+      marginBottom: '16px',
       borderRadius: '8px'
     }}>
       <img src={notification.icon} alt="Notification Icon" style={{ width: '32px', marginRight: '16px' }} />

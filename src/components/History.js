@@ -77,7 +77,7 @@ function History({ activeChain }) {
               return acc;
             }, {})}
             xtitle="Date"
-            ytitle="Referrals"
+            ytitle="Referrals (Count)"
           />
           {/* <LineChart
             data={data.map((row) => [
