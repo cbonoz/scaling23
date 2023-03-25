@@ -5,26 +5,45 @@
 <br/>
 
 
-Zklinks: L2 Referral link tracking
+Zklinks: Cross-chain L2 network referral link tracking
 ---
 
-zklinks is a cross-chain Layer 2 link tracking platform that leverages zero knowledge L@ networks to provide users with a more secure and private way to track click referrals and earn rewards. 
+zklinks is a Cross-chain Layer 2 link tracking platform that leverages zero knowledge L2 networks to provide users with a more secure and private way to track click referrals and earn rewards. 
 
 Built as a prototype for the Scaling Ethereum 2023 hackathon.
 
-### Background
+### Motivation
 
 Unlike traditional referral programs, where personal information such as email addresses, phone numbers, or social media profiles may be shared, zklinks allows users to keep their personal data private while still being able to participate in referral programs and earn rewards.
 
-When a user generates a referral link using zklinks, the link is hashed and encrypted using zero knowledge proofs. This means that the link can be used to track referrals and determine whether a user is eligible for a reward, without revealing any personal information about the user or their friend. The platform also allows users to view their referral statistics from the app, such as the number of clicks and successful referrals, while maintaining their privacy.
+When a user generates a referral link using zklinks, the link is hashed and encrypted using zero knowledge proofs. This means that the link can be used to track referrals and determine whether a user is eligible for a reward, without revealing any personal information about the user or their friend. The platform also allows users to view their referral statistics from the app, such as the number of clicks and successful referrals, while maintaining their privacy. 
 
-### Advantages over apps like bit.ly
+Successful referrals are represented as permanent transactions against Zklink 'LinkContract' smart contracts rather than centralized databases. L2 networks also offer some of the lowest transaction fees and highest throughput such that click tracking can be done at scale.
+
+### Technologies used
+
+L2 networks are the backbone of zklinks. Zklinks is a cross-chain application that works with the below networks.
+
+Zklinks is currently available on prominent L2 test networks. To use, simply connect your metamask account to one of the below:
+
+### Networking
+
+* Scroll: zkEVM compatible base chain 
+* Gnosis Chain: zkEVM compatible base chain
+* Polygon: zkEVM compatible base chain
+
+### Storage/Notifications
+
+* Polybase: Acts as a decentralized web3 Firebase. Used for link dashboards for a given account. With Polybase, Zklinks doesn't need a hosted backed for owner accounts and instead add and pulls lists of active links for a given accounts from a 'Zklinks' collection based on the active account wallet address.
+* Push protocol: The owner of a LinkContract receives a notification through push protocol when a link is clicked / referred successfully.
+
+### Other advantages over existing link tracking apps like bit.ly
 
 Enhanced Privacy: One of the main advantages of using a zero-knowledge proof system like zklinks is the enhanced privacy it provides. Unlike traditional referral link tracking systems, which often require users to share personal information such as their email address or social media accounts, zklinks allows users to prove their referral without revealing any personal information. This means that users can refer friends and family without having to worry about their privacy being compromised.
 
 Improved Security: Another benefit of using a zero-knowledge proof system like zklinks is the improved security it provides. Traditional referral link tracking systems are often vulnerable to hacking and other security breaches, which can compromise the personal information of both users and their referrals. By using a zero-knowledge proof system, zklinks can ensure that all referral data is kept secure and cannot be accessed by unauthorized parties.
 
-Fair Rewards: Finally, a zero-knowledge referral link tracking app like zklinks can help ensure that rewards are distributed fairly and transparently. Traditional referral link tracking systems often have complex reward structures that can be difficult for users to understand, and can sometimes be manipulated by unscrupulous actors. By using a transparent and secure system like zklinks, users can be confident that their referrals will be tracked accurately and that rewards will be distributed fairly based on their referral activity.
+Fair Rewards: Zklinks can also help ensure that rewards are distributed fairly and transparently. Traditional referral link tracking systems often have complex reward structures that can be difficult for users to understand, and can sometimes be manipulated by unscrupulous actors. By using an open smart contract system like zklinks, users can be confident that their referrals will be tracked accurately and that rewards will be distributed fairly based on their referral activity.
 
 ### How to run
 
@@ -72,10 +91,7 @@ Conclusion (30 seconds): Summarize the benefits of zklinks, including protecting
 
 
 Sponsors:
-Scroll: EVM compatible base chain (Dapp challenge)
-Gnosis Chain: EVM compatible base chain (Dapp challenge)
-Polybase: Web3 Firebase. Used for link dashboards for a given account.
-Push protocol: notifications when a link is clicked / referred successfully.
+
 
 
 -->
