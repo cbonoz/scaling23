@@ -106,21 +106,21 @@ function App() {
     {
       key: 0,
       label: <>
-      Network:&nbsp;
-      <Select
-        defaultValue={activeChain.id}
-        style={{ width: 200 }}
-        onChange={(v) => setActiveChain(CHAIN_OPTIONS[v])}
-      >
-        {Object.values(CHAIN_OPTIONS).map((chain, i) => {
-          return (
-            <Option key={i} value={chain.id}>
-              {capitalize(chain.name)}
-            </Option>
-          );
-        })}
-      </Select>
-</>
+        Network:&nbsp;
+        <Select
+          defaultValue={activeChain.id}
+          style={{ width: 200 }}
+          onChange={(v) => setActiveChain(CHAIN_OPTIONS[v])}
+        >
+          {Object.values(CHAIN_OPTIONS).map((chain, i) => {
+            return (
+              <Option key={i} value={chain.id}>
+                {capitalize(chain.name)}
+              </Option>
+            );
+          })}
+        </Select>
+      </>
     },
     {
       key: 1,
@@ -130,10 +130,13 @@ function App() {
             <Button type="primary" onClick={login} loading={loading} disabled={loading}>Login with Metamask</Button>
           </span>}
           {account && <span><span>Hello: {account}</span>
-          <BellOutlined onClick={} />
+            <BellOutlined onClick={() => {
+              console.log('notifications', notifications)
+              alert(JSON.stringify(notifications, null, 2))
+            }} />
           </span>
-            
-            }
+
+          }
 
         </span>
     },

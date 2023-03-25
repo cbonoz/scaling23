@@ -1,18 +1,16 @@
 import * as PushAPI from "@pushprotocol/restapi";
-import { APP_ICON_URL, PUSH_NOTIFICATIONS_ENV } from "./constants";
-
-import * as PushAPI from "@pushprotocol/restapi";
+import { APP_ICON_URL, APP_NAME, PUSH_NOTIFICATIONS_ENV } from "./constants";
 import * as ethers from "ethers";
 
-const Pkey = `0x${PK}`;
-const _signer = new ethers.Wallet(Pkey);
+
 
 const createUser = address => `eip155:42:${address}`
 
 
 export const fetchNotifications = async (address) => {
+  const user = createUser(address);
   const notifications = await PushAPI.user.getFeeds({
-    user: createUser(address),
+    user,
     env: PUSH_NOTIFICATIONS_ENV
   });
 
@@ -26,6 +24,9 @@ const sendNotification = async (address, referee, redirectUrl) => {
     title: `[SDK-TEST] ${APP_NAME}: Successful referral`,
     body: `[sdk-test] ${APP_NAME}: ${referee} has been successfully referred to ${redirectUrl}`,
   }
+
+  // const Pkey = `0x${''}`;
+  const _signer = new ethers.Wallet(address);
 
   try {
     const apiResponse = await PushAPI.payloads.sendNotification({

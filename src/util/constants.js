@@ -2,7 +2,7 @@ export const COVALENT_KEY = process.env.REACT_APP_COVALENT_KEY; // covalent api 
 export const NFT_PORT_KEY = process.env.REACT_APP_NFT_PORT_KEY; // nft port key
 
 export const APP_NAME = "zklinks";
-export const APP_DESC = "Zero knowledge-backed zklink requests";
+export const APP_DESC = "Zero-knowledge referral link tracking";
 export const APP_ICON_URL = 'https://i.ibb.co/rsBPB9g/link.png';
 
 

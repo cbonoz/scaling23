@@ -6,7 +6,7 @@ import { CREATE_STEPS, EXAMPLE_FORM } from "../util/constants";
 import { deployContract } from "../contract/linkContract";
 import { createLink } from "../util/polybase";
 
-function CreateRequest({ activeChain }) {
+function CreateRequest({ activeChain, account }) {
   const [data, setData] = useState({ reward: 0 })
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
