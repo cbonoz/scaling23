@@ -71,14 +71,15 @@ The L2 smart contract enforces that an address can only be referred and rewarded
 2. `yarn; yarn start`
 ### Example zklinks (try these out!)
 
-Connect to the appropriate network and visit the following links.
+Connect to the appropriate network via metamask and visit the following links.
 
 You'll get redirected to google.com with a track record assigned to the Zklink contract .
 
-Gnosis:
-zklinks.surge.sh/link
-0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd
-`/link/0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd`
+Gnosis (Chaido):
+https://zklinks.surge.sh/link/0xb1F35230c645C12Bc3066dcdcd774E704983d208
+
+Scroll (Alpha):
+https://zklinks.surge.sh/link/0xAE985d249B125c7b2CCc000B1D6ea250e1204E41
 
 ### Screenshots
 
