@@ -153,11 +153,11 @@ function App() {
     },
     {
       key: 1,
-      label: <span className="align-right">
+      label: <span>
         Network:&nbsp;
         <Select
           defaultValue={activeChain.id}
-          style={{ width: 175 }}
+          style={{ width: 175, textAlign: 'left' }}
           onChange={(v) => setActiveChain(CHAIN_OPTIONS[v])}
         >
           {Object.values(CHAIN_OPTIONS).map((chain, i) => {
