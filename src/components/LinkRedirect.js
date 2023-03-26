@@ -89,14 +89,14 @@ export default function LinkRedirect({ activeChain, account, provider }) {
     const { redirectUrl, title, owner, reward } = data
     const fullRedirectUrl = `${redirectUrl || ''}?ref=${account}`
 
+    const alreadyReferred = error?.indexOf('already referred') !== -1
+    const walletError = error?.indexOf('wallet to continue') !== -1
 
-    if (error) {
-        const alreadyReferred = error.indexOf('already referred') !== -1
+    if (alreadyReferred) {
         return <div>
             <span className='error-text'>{error}</span>
             <br />
             <br />
-            {!alreadyReferred && <Button type="primary" onClick={() => setError(undefined)}><ArrowLeftOutlined /> Back</Button>}
             {alreadyReferred && <div>
                 <p>You may still continue to the page: {redirectUrl}</p>
                 <Button type="primary" onClick={() => window.open(fullRedirectUrl)}>Continue to page</Button>
@@ -115,10 +115,12 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         <div>
             <Card title={cardTitle}>
                 {title && <p>Title: {title}</p>}
-                You will be redirected to the following page when you click the button below:
+                {walletError && <p>This is a {APP_NAME} referral page.</p>}
+                {!error && <p>You will be redirected to the following page when you click the button below:</p>}
                 {redirectUrl && <p>Redirect URL: {redirectUrl}</p>}
+                {error && <div className='error-text'>{error}</div>}
                 {!success && <Button
-                    disabled={!redirectUrl || !account}
+                    disabled={!redirectUrl || !account || error}
                     type="primary"
                     onClick={() => {
                         completeReferral()
