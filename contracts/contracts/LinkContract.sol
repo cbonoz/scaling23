@@ -18,6 +18,8 @@ contract LinkContract {
 
     LinkMetadata public linkMetadata;
 
+    event RefferalSuccess(address indexed referrer, address indexed referral, string indexed redirectUrl);
+
     constructor(
         string memory _title,
         uint256 _referralReward,
@@ -46,6 +48,8 @@ contract LinkContract {
             // Transfer reward to sender.
             payable(msg.sender).transfer(referralReward);
         }
+
+        emit RefferalSuccess(linkMetadata.owner, msg.sender, linkMetadata.redirectUrl);
     }
 
     function getMetadata() external view returns (LinkMetadata memory) {

@@ -40,6 +40,10 @@ function CreateRequest({ activeChain, account }) {
       setError(
         `Please switch to the ${activeChain.name} (${targetChainId}) network in metamask to create this zklink request.`
       );
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ targetChainId }], // chainId must be in hexadecimal numbers
+      });
       return;
     }
 

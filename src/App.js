@@ -8,7 +8,7 @@ import { APP_DESC, APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./util/constan
 import History from "./components/History";
 import Home from "./components/Home";
 import logo from "./assets/logo.png";
-import { capitalize } from "./util";
+import { capitalize, toHexString } from "./util";
 import LinkRedirect from "./components/LinkRedirect";
 
 import "./App.css";
@@ -41,6 +41,26 @@ function App() {
     }
 
   }
+
+  // Request new network on change
+  const changeNetwork = async (chainId) => {
+    const e = window.ethereum
+    if (!e) {
+      alert('Metamask must be connected to use Zklinks')
+      return
+    }
+
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId }], // chainId must be in hexadecimal numbers
+    });
+  }
+  useEffect(() => {
+    if (account) { 
+      changeNetwork(toHexString(activeChain.id))
+    }
+  }, [activeChain])
+ 
 
   const login = async () => {
     setLoading(true)

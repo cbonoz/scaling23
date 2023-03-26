@@ -31,6 +31,7 @@ export default function LinkRedirect({ activeChain, account, provider }) {
             // Redirect and referral successful.
 
             // Add notification
+            await sendPush(data.owner, account, redirectUrl)
 
             // Send to page
             setSuccess(true)
@@ -40,7 +41,6 @@ export default function LinkRedirect({ activeChain, account, provider }) {
         }
         finally {
             setLoading(false)
-            await sendPush(data.owner, account, redirectUrl)
         }
     }
 
@@ -144,13 +144,13 @@ export default function LinkRedirect({ activeChain, account, provider }) {
                 okButtonProps={{ style: { display: 'none' } }}
                 cancelButtonProps={{ style: { display: 'none' } }}
                 onCancel={() => setSuccess(false)}>
-                    <hr/>
-                    <h3>Proceed to page below</h3>
-                    <a href={fullRedirectUrl} rel="noreferrer">{fullRedirectUrl}</a>
-                    <br/>
-                    <br/>
-                    <p>Thanks for using {APP_NAME}!</p>
-                </Modal>
+                <hr />
+                <h3>Proceed to page below</h3>
+                <a href={fullRedirectUrl} rel="noreferrer">{fullRedirectUrl}</a>
+                <br />
+                <br />
+                <p>Thanks for using {APP_NAME}!</p>
+            </Modal>
         </div>
     )
 }

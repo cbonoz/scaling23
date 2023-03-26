@@ -45,6 +45,11 @@ Improved Security: Another benefit of using a zero-knowledge proof system like z
 
 Fair Rewards: Zklinks can also help ensure that rewards are distributed fairly and transparently. Traditional referral link tracking systems often have complex reward structures that can be difficult for users to understand, and can sometimes be manipulated by unscrupulous actors. By using an open smart contract system like zklinks, users can be confident that their referrals will be tracked accurately and that rewards will be distributed fairly based on their referral activity.
 
+### Core referral logic
+<img src="./img/contract.png" width=800 />
+
+The L2 smart contract enforces that an address can only be referred and rewarded once for a given LinkContract. An event is emitted that can be indexed by external platforms.
+
 
 ### How to run
 
@@ -63,10 +68,68 @@ Connect to the appropriate network and visit the following links.
 
 You'll get redirected to google.com with a track record assigned to the Zklink contract .
 
-Gnosis ():
+Gnosis:
 zklinks.surge.sh/link
 0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd
 `/link/0xC931C5F45d4126Ac87fAF62E3682D957dE13FDfd`
+
+### Screenshots
+
+#### Home
+<img src="./img/home.png" width=800 />
+
+#### Creating a new link contract
+<img src="./img/home.png" width=800 />
+
+#### Connecting wallet / switching L2 networks
+<img src="./img/switching.png" width=800 />
+
+
+#### Link created
+<img src="./img/created.png" width=800 />
+
+
+
+
+
+#### About
+<img src="./img/about.png" width=800 />
+
+#### Error
+<img src="./img/error.png" width=800 />
+
+#### Referral transaction
+<img src="./img/refer.png" width=800 />
+
+#### Successful referrals creates transactions on the L2 networks
+<img src="./img/success.png" width=800 />
+
+#### Scroll L2 contract
+<img src="./img/scroll.png" width=800 />
+
+#### Gnosis L2 contract
+<img src="./img/gnosis.png" width=800 />
+
+
+### Push notification occurs on successful referral
+<img src="./img/push.png" width=800 />
+
+#### Notifications powered by Push Protocol
+<img src="./img/notifications.png" width=800 />
+
+#### Referrals tracked
+<img src="./img/chart.png" width=800 />
+
+#### Polybase schema
+<img src="./img/polybase.png" width=800 />
+
+#### Polybase saves created links attached to an address
+<img src="./img/links.png" width=800 />
+
+
+
+
+
 
 ### Useful links
 Event page: https://ethglobal.com/events/scaling2023
