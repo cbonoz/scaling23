@@ -15,7 +15,7 @@ const COLUMNS = [
 
 function History({ activeChain }) {
   const [address, setAddress] = useState(
-    "0x21989d2dbe099d4f278d0c7942231fa289b0b6f5"
+    "0xAE985d249B125c7b2CCc000B1D6ea250e1204E41"
   );
   const [loading, setLoading] = useState();
   const [data, setData] = useState();
