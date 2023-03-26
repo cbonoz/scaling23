@@ -28,13 +28,19 @@ Successful referrals are represented as permanent transactions against Zklink 'L
 
 L2 networks are the backbone of zklinks. Zklinks is a cross-chain application that works with the below networks.
 
+
+### Multichain networking
+
 Zklinks is currently available on prominent L2 test networks. To use, simply connect your metamask account to one of the below:
 
-### Networking
+* Scroll
+Scroll is a Layer 2 scaling solution for Ethereum that zklinks utilizes to provide users with an enhanced, more efficient click tracking experience. By using Scroll, we can take advantage of zk-rollups to batch transactions at lower cost, while still maintaining the security and trustlessness of the Ethereum network.
 
-* Scroll: zkEVM compatible base chain 
-* Gnosis Chain: zkEVM compatible base chain
-* Polygon: zkEVM compatible base chain
+* Gnosis Chain
+We are utilizing Gnosis Chain as a zkEVM-compatible base chain for zklinks. With Gnosis Chain, we can leverage the security and scalability benefits of Layer 2 networks, while still maintaining the ability to interact with smart contracts on the Ethereum mainnet/testnet.
+
+* Polygon
+Polygon is another zkEVM-compatible base chain that we use for zklinks. By leveraging Polygon, we can provide users with fast, low-cost transactions and high throughput, while still maintaining the security and decentralization benefits of Layer 2 networks.
 
 ### Storage/Notifications
 
@@ -138,9 +144,9 @@ https://zklinks.surge.sh/link/0xAE985d249B125c7b2CCc000B1D6ea250e1204E41
 <img src="./img/about.png" width=800 />
 
 
-### Useful links
+<!-- ### Useful links
 Event page: https://ethglobal.com/events/scaling2023
-Sponsors: https://ethglobal.com/events/scaling2023/prizes
+Sponsors: https://ethglobal.com/events/scaling2023/prizes -->
 
 ## Potential future work
 
