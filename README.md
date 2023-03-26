@@ -12,6 +12,10 @@ Zklinks is a multi-chain Layer 2 (L2) link tracking platform that leverages zero
 
 Built as a prototype for the Scaling Ethereum 2023 hackathon.
 
+Live demo: https://zklinks.surge.sh (testnet)
+
+Video: 
+
 ### Motivation
 
 Unlike traditional referral programs, where personal information such as email addresses, phone numbers, or social media profiles may be shared, zklinks allows users to keep their personal data private while still being able to participate in referral programs and earn rewards.
