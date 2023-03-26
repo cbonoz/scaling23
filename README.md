@@ -24,22 +24,17 @@ When a user generates a referral link using zklinks, the link is hashed and encr
 
 Successful referrals are represented as permanent transactions against Zklink 'LinkContract' smart contracts rather than centralized databases. L2 networks also offer some of the lowest transaction fees and highest throughput such that click tracking can be done at scale.
 
-### Technologies used
+## Technologies used
 
-L2 networks are the backbone of zklinks. Zklinks is a cross-chain application that works with the below networks.
+Zklinks is currently available on prominent L2 test networks. To create a new link, simply connect your metamask account to one of the below while on the app:
 
-
-### Multichain networking
-
-Zklinks is currently available on prominent L2 test networks. To use, simply connect your metamask account to one of the below:
-
-* Scroll
+* Scroll: 
 Scroll is a Layer 2 scaling solution for Ethereum that zklinks utilizes to provide users with an enhanced, more efficient click tracking experience. By using Scroll, we can take advantage of zk-rollups to batch transactions at lower cost, while still maintaining the security and trustlessness of the Ethereum network.
 
-* Gnosis Chain
+* Gnosis Chain: 
 We are utilizing Gnosis Chain as a zkEVM-compatible base chain for zklinks. With Gnosis Chain, we can leverage the security and scalability benefits of Layer 2 networks, while still maintaining the ability to interact with smart contracts on the Ethereum mainnet/testnet.
 
-* Polygon
+* Polygon:
 Polygon is another zkEVM-compatible base chain that we use for zklinks. By leveraging Polygon, we can provide users with fast, low-cost transactions and high throughput, while still maintaining the security and decentralization benefits of Layer 2 networks.
 
 ### Storage/Notifications
@@ -47,7 +42,7 @@ Polygon is another zkEVM-compatible base chain that we use for zklinks. By lever
 * Polybase: Acts as a decentralized web3 Firebase. Used for link dashboards for a given account. With Polybase, Zklinks doesn't need a hosted backed for owner accounts and instead add and pulls lists of active links for a given accounts from a 'Zklinks' collection based on the active account wallet address.
 * Push protocol: The owner of a LinkContract receives a notification through push protocol when a link is clicked / referred successfully.
 
-### Other advantages over existing link tracking apps like bit.ly
+## Advantages over other link tracking apps
 
 Enhanced Privacy: One of the main advantages of using a zero-knowledge proof system like zklinks is the enhanced privacy it provides. Unlike traditional referral link tracking systems, which often require users to share personal information such as their email address or social media accounts, zklinks allows users to prove their referral without revealing any personal information. This means that users can refer friends and family without having to worry about their privacy being compromised.
 
@@ -62,15 +57,14 @@ This snippet shows the core refer function of Zklink's deployed 'LinkContract'.
 
 The L2 smart contract enforces that an address can only be referred and rewarded once for a given LinkContract. An event is emitted that can be indexed by external platforms.
 
-
 ### How to run
 
-1. Define the following env variables (either locally or in a created `.env` file)
+1. Define the following env variables (either locally or in a created `.env` file). These are configured with test values on the demo site.
 
 <pre>
     REACT_APP_POLYBASE_NAMESPACE= # Optional custom namespace for polybase deployment/backend.
     REACT_APP_COVALENT_KEY= # Covalent api key used to power history page.
-    REACT_APP_PUSH_PK= # Push protocol wallet private key.
+    REACT_APP_PUSH_PK= # Optional push protocol wallet private key for connected Zklinks staging channel.
 </pre>
 
 2. `yarn; yarn start`
