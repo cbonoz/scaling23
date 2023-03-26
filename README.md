@@ -5,7 +5,7 @@
 <br/>
 
 
-Zklinks: Multi-chain L2 network referral link tracking
+Zklinks: A multi-chain L2 network referral link tracking platform
 ---
 
 Zklinks is a multi-chain Layer 2 (L2) link tracking platform that leverages zero-knowledge L2 networks to provide users with a more secure and private way to track click referrals and earn rewards. 
@@ -14,8 +14,7 @@ Built as a prototype for the Scaling Ethereum 2023 hackathon.
 
 Live demo: https://zklinks.surge.sh (testnet)
 
-
-Video: 
+Video: https://youtu.be/a9Oe-8Rp178
 
 ### Motivation
 
