@@ -40,11 +40,11 @@ export const CHAIN_OPTIONS = {
     url: 'https://blockscout.com/gnosis/chiado/',
     id: 10200
   },
-  // 80001: {
-  //   name: "Mumbai Testnet",
-  //   url: "https://mumbai.polygonscan.com/",
-  //   id: 80001,
-  // },
+  80001: {
+    name: "Mumbai Testnet",
+    url: "https://mumbai.polygonscan.com/",
+    id: 80001,
+  },
 };
 
 export const DEFAULT_CHAIN_ID = 534353;

@@ -87,15 +87,15 @@ zklinks.surge.sh/link
 <img src="./img/switching.png" width=800 />
 
 
+
+#### Creating a new link
+<img src="./img/create.png" width=800 />
+
+
 #### Link created
 <img src="./img/created.png" width=800 />
 
 
-
-
-
-#### About
-<img src="./img/about.png" width=800 />
 
 #### Error screen appears if the referral already occurred or if there was a general error
 <img src="./img/error.png" width=800 />
@@ -129,8 +129,8 @@ zklinks.surge.sh/link
 <img src="./img/links.png" width=800 />
 
 
-
-
+#### About
+<img src="./img/about.png" width=800 />
 
 
 ### Useful links
