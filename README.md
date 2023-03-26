@@ -46,7 +46,7 @@ Improved Security: Another benefit of using a zero-knowledge proof system like z
 Fair Rewards: Zklinks can also help ensure that rewards are distributed fairly and transparently. Traditional referral link tracking systems often have complex reward structures that can be difficult for users to understand, and can sometimes be manipulated by unscrupulous actors. By using an open smart contract system like zklinks, users can be confident that their referrals will be tracked accurately and that rewards will be distributed fairly based on their referral activity.
 
 ### Core referral logic
-<img src="./img/contract.png" width=800 />
+<img src="./img/contract.png" width=600 />
 
 This snippet shows the core refer function of Zklink's deployed 'LinkContract'.
 
@@ -97,7 +97,7 @@ zklinks.surge.sh/link
 #### About
 <img src="./img/about.png" width=800 />
 
-#### Error
+#### Error screen appears if the referral already occurred or if there was a general error
 <img src="./img/error.png" width=800 />
 
 #### Referral transaction
