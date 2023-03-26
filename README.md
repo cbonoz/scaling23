@@ -48,6 +48,8 @@ Fair Rewards: Zklinks can also help ensure that rewards are distributed fairly a
 ### Core referral logic
 <img src="./img/contract.png" width=800 />
 
+This snippet shows the core refer function of Zklink's deployed 'LinkContract'.
+
 The L2 smart contract enforces that an address can only be referred and rewarded once for a given LinkContract. An event is emitted that can be indexed by external platforms.
 
 
