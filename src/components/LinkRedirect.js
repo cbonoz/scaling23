@@ -89,8 +89,8 @@ export default function LinkRedirect({ activeChain, account, provider }) {
     const { redirectUrl, title, owner, reward } = data
     const fullRedirectUrl = `${redirectUrl || ''}?ref=${account}`
 
-    const alreadyReferred = error?.indexOf('already referred') !== -1
-    const walletError = error?.indexOf('wallet to continue') !== -1
+    const alreadyReferred = error && error?.indexOf('already referred') !== -1
+    const walletError = error && error?.indexOf('wallet to continue') !== -1
 
     if (alreadyReferred) {
         return <div>
