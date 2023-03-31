@@ -52,7 +52,7 @@ export const DEFAULT_CHAIN = CHAIN_OPTIONS[DEFAULT_CHAIN_ID]
 
 export const EXAMPLE_FORM = {
   title: "My referral marketing campaign",
-  redirectUrl: "https://google.com",
+  redirectUrl: "https://airdrops.io/uniswap",
   reward: 0
 };
 

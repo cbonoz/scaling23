@@ -72,7 +72,7 @@ The L2 smart contract enforces that an address can only be referred and rewarded
 
 Connect to the appropriate network via metamask and visit the following links.
 
-You'll get redirected to google.com with a track record assigned to the Zklink contract .
+You'll be redirected to the set url (in this case google.com) with a tracking transaction record appending to the Zklink contract.
 
 Gnosis (Chaido):
 https://zklinks.surge.sh/link/0xb1F35230c645C12Bc3066dcdcd774E704983d208
